@@ -17,3 +17,12 @@
 3. git push origin main
 4. git --version
 5. git pull
+6. conda create -p venv python==3.7 -y  /python -m venv venv  
+7. conda activate venv / venv/Scripts/Activate.ps1  
+8. pip install -r requirements.txt
+
+
+# gitbash command
+1. git add .
+2. git status
+3. git restore <file> /git remove <file>.
