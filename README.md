@@ -94,7 +94,7 @@ git branch
 # For Heroku account
 ```
 gmail = pramodkhavare200@gmail.com
-api_key = 38c10d28-d90e-430f-9869-1607883ce7a1
+api_key = 
 app_name = machinelearning-app
 ```
 
