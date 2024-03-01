@@ -1,4 +1,5 @@
-# MachineLearningProject1
+## MachineLearningProject1
+1. [Github Account](https://github.com/pramodkhavare/MachineLearningProject1.git)
 # Used Command 
 
 ```
@@ -94,7 +95,7 @@ git branch
 # For Heroku account
 ```
 gmail = pramodkhavare200@gmail.com
-api_key = 
+api_key = <>
 app_name = machinelearning-app
 ```
 
