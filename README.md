@@ -1,23 +1,22 @@
 # MachineLearningProject1
 # Used Command 
-```
- 
-```
+
 ```
 python -m venv env
 ```
+
 ```
 ls
 ```
+
 ```
 cd foldername
 ```
+
 ```
 code . (open vs code using cmd)
 ```
-```
 
-```
 
 
 
@@ -27,51 +26,67 @@ code . (open vs code using cmd)
 ```
 git clone link
 ```
-```
-git add .
-```
-```
-git push origin main
-```
-```
-git --version
-```
-```
-git pull
-```
-```
-conda create -p venv python==3.7 -y  /python -m venv venv 
-```
-``` 
-conda activate venv / venv/Scripts/Activate.ps1 
-```
-``` 
-pip install -r requirements.txt
 
 ```
 git add .
 ```
+
+```
+git push origin main
+```
+
+```
+git --version
+```
+
+```
+git pull
+```
+
+```
+conda create -p venv python==3.7 -y  /python -m venv venv 
+```
+
+``` 
+conda activate venv / venv/Scripts/Activate.ps1 
+```
+
+``` 
+pip install -r requirements.txt
+```
+
+```
+git add .
+```
+
 ```
 git status
 ```
+
 ```
 git restore <file> /git remove <file>.
 ```
+
 ```
 git commit -m "first commit"
 ```
+
 ```
 git branch -M main
 ```
+
 ```
 git push -u origin main
 ```
+
 ```
 git log
 ```
+
 ```
 git remote -v (to check url/github link)
 ```
+
 ```
 git branch
 ```
