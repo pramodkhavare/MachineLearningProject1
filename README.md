@@ -1,6 +1,7 @@
 ## MachineLearningProject1
 1. [Github Account](https://github.com/pramodkhavare/MachineLearningProject1.git)
-# Used Command 
+
+# Used Command in cmd
 
 ```
 python -m venv env
@@ -18,8 +19,15 @@ cd foldername
 code . (open vs code using cmd)
 ```
 
-
-
+```
+python setup.py install
+```
+```
+pip install -r requirements.txt
+```
+```
+pip install -e.
+```
 
 
 

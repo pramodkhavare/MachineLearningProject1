@@ -1,6 +1,6 @@
 from flask import Flask ,request 
 
-app = Flask(__name__)
+app = Flask(__name__)   #app is Flask object
 
 
 @app.route("/" ,methods= ['GET' , 'POST'])
