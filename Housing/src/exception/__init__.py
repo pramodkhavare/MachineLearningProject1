@@ -1,5 +1,5 @@
 import sys
-from src.logger import logging
+from Housing.src.logger import logging
 
 def error_message_detail(error,error_detail:sys):
     _,_,exc_tb = error_detail.exc_info()
@@ -18,6 +18,12 @@ class HousingException(Exception):
         self.error_message = error_message_detail(error_message, error_detail=error_detail)
 
     def __str__(self):
+        """
+        This function will print class 
+        If we use print(HousingException) ---> You will get return statement from __str__ method
+        """
         return self.error_message    
     
+    def __repr__(self) -> str:
+        return 
 
