@@ -28,6 +28,10 @@ pip install -r requirements.txt
 ```
 pip install -e.
 ```
+Install ipkernel
+```
+pip install ipkernel
+```
 
 
 
