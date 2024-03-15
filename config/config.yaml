@@ -1,10 +1,13 @@
 
+#flow of parameters
+#config.yaml->Constant->configuration
 
 training_pipeline_config :
   pipeline_name : housing 
-  artifact-dir : artifact
+  artifact_dir : artifact
 
 data_ingestion_config :
+  data_ingestion_dir : 'data_ingestion'
   dataset_download_url: https://raw.githubusercontent.com/ageron/handson-ml/master/datasets/housing/housing.tgz
   tgz_download_dir : tgz_data
   raw_data_dir : raw_data
@@ -17,9 +20,10 @@ data_validation_config :
 
 data_transformation_config : 
   add_bedroom_per_room : True
-  transfoemed_dir : transformed_data 
+  transformed_dir : transformed_data_dir 
   transformed_train_dir : train
   transformed_test_dir : test
+  preprocessing_dir : preprocessed
   preprocessed_object_file_path : preprocessed.pkl
 
 model_training_config :

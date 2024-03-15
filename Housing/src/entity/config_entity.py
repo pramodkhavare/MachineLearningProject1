@@ -9,6 +9,10 @@ from collections import namedtuple
 def get_time_stamp():
     return datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
 
+#
+TrainingPipelineConfig = namedtuple('TrainingPipelineConfig' ,
+                                    ['artifact_dir'])
+
 
 #Info related with Data Ingestion
 DataIngestionConfig = namedtuple("DataIngestionConfig" ,
@@ -20,8 +24,8 @@ DataValidationConfig= namedtuple("DataValidationConfig" ,
 
 #Info Related with Data Transformation
 DataTransfrmationConfig = namedtuple('DataTransfrmationConfig' ,
-['add_bedroom_per_room' ,'transfoemed_dir' ,'transformed_train_dir' ,'transformed_test_dir' 
- ,'preprocessed_object_file_path'])
+['add_bedroom_per_room' ,'transformed_dir' ,'transformed_train_dir' ,'transformed_test_dir' 
+ ,'preprocessed_object_dir'])
 
 #Info Related with Model Training
 ModelTrainingConfig = namedtuple('ModelTrainingConfig' ,
@@ -36,3 +40,4 @@ ModelEvaluationConfig = namedtuple("ModelEvaluationConfig" ,
 #Production model saved in these folder and if your model performing better then that model will save at these location
 ModelPusherConfig = namedtuple('ModelPusherConfig' ,
                                ['export_dir_path'])
+
