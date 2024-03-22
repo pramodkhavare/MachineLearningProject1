@@ -32,17 +32,17 @@ class DataIngestion():
             housing_file_name = os.path.basename(self.config.dataset_download_url)
             tgz_file_path = os.path.join(self.config.tgz_download_dir ,housing_file_name)
 
-            logging.info(f"Downloading Data at {tgz_file_path}  from url- {self.config.dataset_download_url}")
+            logging.info(f"Downloading Data at file: [{tgz_file_path}]  from url: [{self.config.dataset_download_url}]")
             filename ,url = urllib.request.urlretrieve(
                 url= self.config.dataset_download_url ,
                 filename= tgz_file_path
             )
-            logging.info(f"File : {tgz_file_path} has been downloaded successfully")
+            logging.info(f"File : [{tgz_file_path}] has been downloaded successfully")
 
             return tgz_file_path
 
         except Exception as e:
-            logging.info(f'Unable to Donload file {self.config.local_data_file}')
+            logging.info(f'Unable to Donload file: [{self.config.local_data_file}]')
             raise HousingConfiguration(e,sys) from e
 
 
@@ -55,7 +55,7 @@ class DataIngestion():
 
             os.makedirs(self.config.raw_data_dir ,exist_ok=True)
 
-            logging.info(f"Extracting data into {self.config.raw_data_dir}")
+            logging.info(f"Extracting data into [{self.config.raw_data_dir}]")
 
             with tarfile.open(tgz_file_path) as housing_tgz_file_obj:
                 housing_tgz_file_obj.extractall(path=self.config.raw_data_dir)
@@ -112,6 +112,7 @@ class DataIngestion():
             if start_test_set is not None:
                 os.makedirs(self.config.ingested_test_dir ,exist_ok= True)
                 # print(start_test_set)
+                logging.info(f"Saving test data to file :{test_file_path}")
                 start_test_set.to_csv(test_file_path ,index = False)
 
 
@@ -136,9 +137,11 @@ class DataIngestion():
             tgz_file_path = self.download_tgz_file()
             self.extract_tgz_file(tgz_file_path=tgz_file_path)
             data_ingestion_artifacts = self.split_data_train_test()
-
+            logging.info(f"{'*'*20}Data Ingestion Step Completed{'*'*20}")
             return data_ingestion_artifacts
+        
         except Exception as e:
             raise HousingException(e ,sys) from e
-
-
+        
+    def _del_(self):
+        logging.info(f"{'*'*20} Data Ingesteion Pipeline Completed {'*'*20}")
