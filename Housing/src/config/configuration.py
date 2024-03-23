@@ -74,7 +74,51 @@ class HousingConfiguration():
             return data_ingestion_config
 
         except Exception as e:
-            raise HousingException (e ,sys)
+            raise HousingException (e ,sys) from e 
+        
+
+    def get_data_validation_config(self) ->DataValidationConfig:
+        try:
+            config = self.config_info[DATA_VALIDATION_CONFIG_KEY]
+            data_validation_dir_key = os.path.join(
+                self.training_pipeline_config.artifact_dir ,
+                config[DATA_VALIDATION_DIR_KEY] ,
+                self.time_stamp
+            )
+
+            schema_file_path = os.path.join(
+                ROOT_DIR,
+                config[DATA_VALIDATION_SCHEMA_DIR_KEY] ,
+                config[DATA_VALIDATION_SCHEMA_FILE_KEY]
+            )
+
+            report_file_path =  os.path.join(
+                self.training_pipeline_config.artifact_dir ,
+                data_validation_dir_key ,
+                config[DATA_VALIDATION_REPORT_FILE_NAME_KEY]
+            )
+
+            report_page_file_path = os.path.join(
+                self.training_pipeline_config.artifact_dir ,
+                data_validation_dir_key,
+                config[DATA_VALIDATION_REPORT_PAGE_FILE_NAME_KEY]
+            )
+
+            data_validation_config = DataValidationConfig(
+                schema_file_path = schema_file_path ,
+                report_file_path= report_file_path ,
+                report_page_file_path= report_page_file_path
+            )
+
+
+            return data_validation_config
+                    
+        except Exception as e:
+            raise HousingException(e,sys) from e 
+
+
+
+
 
 
 
@@ -111,13 +155,27 @@ class HousingConfiguration():
             return data_transformation_config
         
         except Exception as e:
-            raise HousingException (e ,sys)
+            raise HousingException (e ,sys) from e
 
-    def get_data_validation_config(self) ->DataValidationConfig:
-        pass 
+    
+
+
     def get_model_trainer_config(self) ->ModelTrainingConfig:
-        pass 
 
+        try:
+            # self.config_info[]
+            # trainer_model_file_path = 
+
+        #     model_trainer_config=ModelTrainingConfig(
+        #     trained_model_file_path= ,
+        #     model_file_name= ,
+        #     base_accuracy= 0.6
+        # ) 
+            pass
+
+        except Exception as e:
+            raise HousingException (e ,sys)
+        
     def get_model_evaluation_config(self) ->ModelEvaluationConfig:
         pass 
 

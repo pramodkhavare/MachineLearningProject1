@@ -16,7 +16,11 @@ data_ingestion_config :
   ingested_test_dir : test
 
 data_validation_config :
-  schema_file_path : schema.yaml
+  data_validation_dir : 'data_validation'
+  schema_dir: config
+  schema_file_name : schema.yaml 
+  report_file_name : report.json
+  report_page_file_name : report.html 
 
 data_transformation_config : 
   add_bedroom_per_room : True
@@ -24,15 +28,15 @@ data_transformation_config :
   transformed_train_dir : train
   transformed_test_dir : test
   preprocessing_dir : preprocessed
-  preprocessed_object_file_path : preprocessed.pkl
+  preprocessed_object_file_name : preprocessed.pkl
 
 model_training_config :
-  trained_model_file_path : trained_model
+  trained_model_file_name : trained_model
   model_file_name : model.pkl
   base_accuracy : 0.6
 
 model_evaluation_config :
-  model_evaluation_file_path : model_evaluation.yaml
+  model_evaluation_file_name : model_evaluation.yaml
 
 model_pusher_config :
   export_dir_path : saved_models

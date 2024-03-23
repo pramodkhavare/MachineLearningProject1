@@ -43,7 +43,7 @@ class DataIngestion():
 
         except Exception as e:
             logging.info(f'Unable to Donload file: [{self.config.local_data_file}]')
-            raise HousingConfiguration(e,sys) from e
+            raise HousingException(e,sys) from e
 
 
 
