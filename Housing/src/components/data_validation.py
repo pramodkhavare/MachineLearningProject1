@@ -3,10 +3,16 @@ from Housing.src.logger import logging
 from Housing.src.exception import HousingException 
 from Housing.src.entity.config_entity import DataValidationConfig
 from Housing.src.entity.artifact_entity import  DataIngestionArtifact
+from Housing.src.entity.artifact_entity import DataValidationArtifacts
 import os ,sys 
 import pandas as pd
 from Housing.src.utils.utils import read_yaml ,check_lists_match
-
+from evidently.model_profile import Profile
+from evidently.model_profile.sections import DataDriftProfileSection
+from evidently.dashboard import Dashboard 
+from evidently.dashboard.tabs import DataDriftTab
+import json 
+from evidently.report import Report
 
 class DataValidation():
     def __init__(self ,data_validation_config : DataValidationConfig ,
@@ -75,11 +81,82 @@ class DataValidation():
              
         except Exception as e:
             raise HousingException(e ,sys) from e
+    
+    def fianal_data_validation(self):
+        try:
+            data_validation =False 
+            data_validation = self.validate_dataset_schema() and  self.check_file_exist()
+            return data_validation
+        except Exception as e:
+            raise HousingException(e,sys) from e
+
+    def save_data_drift_report(self):
+        try:
+            profile = Profile(sections=[DataDriftProfileSection()])
+            train_df = pd.read_csv(self.data_ingestion_artifact.train_file_path)
+            test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path) 
+
+
+            profile.calculate(train_df ,test_df)
+
+
+            
+            report = json.loads(profile.json())
+            #json.loads used for data to json format 
+            #json.load used for file to convert into json format
+        
+            # print(self.data_validation_config.report_file_path )
+            report_file_dir  = os.path.dirname(self.data_validation_config.report_file_path)
+            os.makedirs(report_file_dir ,exist_ok= True)
+            with open(self.data_validation_config.report_file_path ,'w') as report_file:
+                json.dump(report ,report_file ,indent=6)
+
+            return report
+
+        except Exception as e:
+            raise HousingException(e ,sys) from e
+        
 
         
+    def save_data_drift_report_page(self):
+        try:
+            dashboard = Dashboard(tabs =[DataDriftTab()])
+            train_df = pd.read_csv(self.data_ingestion_artifact.train_file_path)
+            test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path) 
+            dashboard.calculate(train_df ,test_df)
+
+
+            dashboard_file_dir  = os.path.dirname(self.data_validation_config.report_page_file_path)
+            os.makedirs(dashboard_file_dir ,exist_ok= True)
+
+
+            dashboard.save(self.data_validation_config.report_page_file_path)
+
+        except Exception as e:
+            raise HousingException(e ,sys) from e
+
+    def is_data_drift_found(self) ->bool:
+        try:
+            report = self.save_data_drift_report()
+            self.save_data_drift_report_page()
+            return True
+        except Exception as e:
+            raise HousingException(e ,sys) from e
+        
+
+
     def initiate_data_validation(self):
         try:
-            is_available = self.check_file_exist()
-            validation_status = self.validate_dataset_schema()
+            validation_status = self.fianal_data_validation()
+            data_drif_found =self.is_data_drift_found()
+            data_validation_artifact = DataValidationArtifacts(
+                schema_file_path= self.data_validation_config.schema_file_path,
+                report_file_path= self.data_validation_config.report_file_path,
+                report_page_file_path= self.data_validation_config.report_page_file_path,
+                is_validated= validation_status,
+                message= f"We are able to validate Train and Test data successfully .Thank you Pramod Khavare"
+            )
+            logging.info(f"Data Validation is completed and result stored in DataValidationArtifacts [{data_validation_artifact}]")
+            return data_validation_artifact
         except Exception as e:
             raise HousingException(e ,sys) from e

@@ -6,14 +6,19 @@ from Housing.src.components.data_validation import DataValidation
 from Housing.src.components.data_ingestion import DataIngestion
 def main():
     try:
-        housing_configuration = HousingConfiguration()
-        data_ingestion_config = housing_configuration.get_data_ingestion_config()
+        pipeline = Pipeline()
+        # data_ingestion_artifacts = pipeline.start_data_ingestion()
+        data_validation_artifacts = pipeline.start_data_validation()
+        print("Completed")
+        # housing_configuration = HousingConfiguration()
+        # housing_configuration.get_data_validation_config()
+        # data_ingestion_config = housing_configuration.get_data_ingestion_config()
 
-        data_ingestion = DataIngestion(data_ingestion_config=data_ingestion_config)
-        data_ingestion_artifact = data_ingestion.initiate_data_ingestion()
-        data_validation_config = housing_configuration.get_data_validation_config()
-        data_validation = DataValidation(data_validation_config , data_ingestion_artifact)
-        data_validation.validate_dataset_schema()
+        # data_ingestion = DataIngestion(data_ingestion_config=data_ingestion_config)
+        # data_ingestion_artifact = data_ingestion.initiate_data_ingestion()
+        # data_validation_config = housing_configuration.get_data_validation_config()
+        # data_validation = DataValidation(data_validation_config , data_ingestion_artifact)
+        # data_validation.validate_dataset_schema()
 
     except Exception as e:
         logging.error(f"{e}")

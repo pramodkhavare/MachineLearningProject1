@@ -8,5 +8,5 @@ DataIngestionArtifact = namedtuple('DataIngestionArtifact',
 
 DataValidationArtifacts = namedtuple(
     'DataValidationArtifacts' ,
-    []
+    ["schema_file_path" , "report_file_path" ,'report_page_file_path' ,"is_validated" ,"message"]
 )

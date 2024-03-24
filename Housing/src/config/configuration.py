@@ -110,6 +110,7 @@ class HousingConfiguration():
                 report_page_file_path= report_page_file_path
             )
 
+            print(data_validation_config)
 
             return data_validation_config
                     

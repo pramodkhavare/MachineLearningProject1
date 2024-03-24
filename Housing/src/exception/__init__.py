@@ -7,7 +7,7 @@ def error_message_detail(error,error_detail:sys):
     exception_block_line_number = exc_tb.tb_frame.f_lineno
     try_block_line_number = exc_tb.tb_lineno
 
-    error_message = """Error occured in python script name: [{0}] 
+    error_message = """Error occured in python script file name: [{0}] 
     line number [{1}] 
     try block line number :[{3}] ,
     exception block line number [{4}] and 
