@@ -156,6 +156,7 @@ class DataValidation():
                 is_validated= validation_status,
                 message= f"We are able to validate Train and Test data successfully .Thank you Pramod Khavare"
             )
+            print("Data Validation Completed")
             logging.info(f"Data Validation is completed and result stored in DataValidationArtifacts [{data_validation_artifact}]")
             return data_validation_artifact
         except Exception as e:

@@ -1,8 +1,9 @@
 from Housing.src.config.configuration import HousingConfiguration
 from Housing.src.components.data_ingestion import DataIngestion
 from Housing.src.components.data_validation import DataValidation
+from Housing.src.components.data_transformation import DataTransformation
 from Housing.src.exception import HousingException
-from Housing.src.entity.artifact_entity import DataIngestionArtifact ,DataValidationArtifacts
+from Housing.src.entity.artifact_entity import DataIngestionArtifact ,DataValidationArtifacts ,DataTransformationArtifact
 from Housing.src.logger import logging
 import os ,sys
 class Pipeline:
@@ -20,7 +21,7 @@ class Pipeline:
             data_ingestion = DataIngestion(data_ingestion_config=data_ingestion_config)
             data_ingestion_output = data_ingestion.initiate_data_ingestion()
             return data_ingestion_output
-            print('Data Ingestion Completed')
+            
              
         except Exception as e:
             raise HousingException(e ,sys) from e
@@ -39,9 +40,16 @@ class Pipeline:
             raise HousingException(e ,sys) from e
           
 
-    def start_data_transformation(self):
+    def start_data_transformation(self) ->DataTransformationArtifact:
         try:
-            pass 
+            data_transformation_config = self.config.get_data_transformation_config()
+            data_transformation_artifacts = DataTransformation(
+                data_transformation_config=data_transformation_config ,
+                data_ingestion_artifact= self.start_data_ingestion() ,
+                data_validation_artifact= self.start_data_validation()
+            )
+            data_transformation_artifacts.initiated_data_transformation()
+            return data_transformation_artifacts
         except Exception as e:
             raise HousingException(e ,sys) from e  
 

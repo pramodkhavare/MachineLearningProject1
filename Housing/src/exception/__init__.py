@@ -4,16 +4,9 @@ from Housing.src.logger import logging
 def error_message_detail(error,error_detail:sys):
     _,_,exc_tb = error_detail.exc_info()
     file_name = exc_tb.tb_frame.f_code.co_filename
-    exception_block_line_number = exc_tb.tb_frame.f_lineno
-    try_block_line_number = exc_tb.tb_lineno
 
-    error_message = """Error occured in python script file name: [{0}] 
-    line number [{1}] 
-    try block line number :[{3}] ,
-    exception block line number [{4}] and 
-    error message [{2}]""".format(
-        file_name, exc_tb.tb_lineno , str(error),
-        exception_block_line_number ,try_block_line_number
+    error_message = "Error occured in python script name [{0}] line number [{1}] error message [{2}]".format(
+        file_name, exc_tb.tb_lineno, str(error)
     )
 
     return error_message

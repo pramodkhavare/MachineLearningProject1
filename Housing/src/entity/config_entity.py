@@ -25,7 +25,7 @@ DataValidationConfig= namedtuple("DataValidationConfig" ,
 #Info Related with Data Transformation
 DataTransfrmationConfig = namedtuple('DataTransfrmationConfig' ,
 ['add_bedroom_per_room' ,'transformed_dir' ,'transformed_train_dir' ,'transformed_test_dir' 
- ,'preprocessed_object_dir'])
+ ,'preprocessed_object_dir' ,'preprocessing_object_file_name'])
 
 #Info Related with Model Training
 ModelTrainingConfig = namedtuple('ModelTrainingConfig' ,

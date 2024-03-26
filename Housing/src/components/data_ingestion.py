@@ -9,23 +9,24 @@ from six.moves import urllib
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import StratifiedShuffleSplit 
+import shutil
 
 class DataIngestion():
     def __init__(self ,data_ingestion_config :DataIngestionConfig):
         try:
             logging.info(f"{'*'*20}Data Ingestion Step Started{'*'*20}")
             self.config = data_ingestion_config  
+            # print(self.config)
         except Exception as e:
             raise HousingException(e ,sys) from e
         
 
 
     def download_tgz_file(self):
-        try:
-            
+        try:          
             if os.path.exists(self.config.tgz_download_dir):
                (
-                  os.remove(self.config.tgz_download_dir) 
+                  shutil.rmtree(self.config.tgz_download_dir) 
                ) 
             os.makedirs(self.config.tgz_download_dir ,exist_ok=True)
 
@@ -42,7 +43,7 @@ class DataIngestion():
             return tgz_file_path
 
         except Exception as e:
-            logging.info(f'Unable to Donload file: [{self.config.local_data_file}]')
+            # logging.info(f'Unable to Donload file: [{tgz_file_path}]')
             raise HousingException(e,sys) from e
 
 
@@ -51,7 +52,7 @@ class DataIngestion():
     def extract_tgz_file(self ,tgz_file_path :str):
         try:
             if os.path.exists(self.config.raw_data_dir):
-                os.remove(self.config.raw_data_dir)
+                shutil.rmtree(self.config.raw_data_dir)
 
             os.makedirs(self.config.raw_data_dir ,exist_ok=True)
 
@@ -138,6 +139,7 @@ class DataIngestion():
             self.extract_tgz_file(tgz_file_path=tgz_file_path)
             data_ingestion_artifacts = self.split_data_train_test()
             logging.info(f"{'*'*20}Data Ingestion Step Completed{'*'*20}")
+            print("Data Ingestion Completed")
             return data_ingestion_artifacts
         
         except Exception as e:

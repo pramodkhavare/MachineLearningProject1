@@ -9,8 +9,10 @@ from Housing.src.logger import logging
 class HousingConfiguration():
     def __init__(self , config_file_path = CONFIG_FILE_PATH ,
                  current_time_stamp = CURRENT_TIME_STAMP):
+        
         try:
-            self.config_info = read_yaml(yaml_file_path= config_file_path)
+            # self.config_info = read_yaml(yaml_file_path= config_file_path)
+            self.config_info = read_yaml(r'D:\Data Science\MachineLearning\Project\MachineLearningProject1\config\config.yaml')
             self.training_pipeline_config = self.get_training_pipeline_config()
             self.time_stamp = current_time_stamp
 
@@ -110,8 +112,6 @@ class HousingConfiguration():
                 report_page_file_path= report_page_file_path
             )
 
-            print(data_validation_config)
-
             return data_validation_config
                     
         except Exception as e:
@@ -125,9 +125,11 @@ class HousingConfiguration():
 
     def get_data_transformation_config(self) ->DataTransfrmationConfig:
         try:
+            logging.info("Getting Data Transformation Config Component")
             config = self.config_info[DATA_TRANSFORMATION_CONFIG_KEY]
 
             add_bedroom_per_room = config[ADD_BEDROOM_PER_ROOM_KEY]
+            
             transformed_dir = os.path.join(
                 self.training_pipeline_config.artifact_dir ,
                 config[TRANSFORMED_DIR_KEY],
@@ -135,24 +137,28 @@ class HousingConfiguration():
             )
             transformed_train_dir = os.path.join(
                 transformed_dir ,
-                config[TRANSFORMED_TRAIN_DIR]
+                config[TRANSFORMED_TRAIN_DIR_KEY]
             )
             transformed_test_dir = os.path.join(
                 transformed_dir ,
-                config[TRANSFORMED_TEST_DIR]
+                config[TRANSFORMED_TEST_DIR_KEY]
             )
             preprocessed_object_dir = os.path.join(
                 transformed_dir ,
-                config[PREPROCESSED_DIR_KEY]
+                config[PREPROCESSING_DIR_KEY]
             )
+            preprocessing_object_file_name = config[PREPROCESSING_OBJECT_FILE_NAME_KEY]
+
             data_transformation_config = DataTransfrmationConfig(
                 add_bedroom_per_room = add_bedroom_per_room ,
                 transformed_dir= transformed_dir ,
                 transformed_train_dir = transformed_train_dir ,
                 transformed_test_dir = transformed_test_dir ,
-                preprocessed_object_dir = preprocessed_object_dir
+                preprocessed_object_dir = preprocessed_object_dir,
+                preprocessing_object_file_name= preprocessing_object_file_name
             )
 
+            logging.info(f"Data Transformation Config : [{data_transformation_config}]")
             return data_transformation_config
         
         except Exception as e:
