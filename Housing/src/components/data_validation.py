@@ -52,13 +52,14 @@ class DataValidation():
         
     def validate_dataset_schema(self) -> bool:
         try:
+            print(self.data_ingestion_artifact)
             logging.info('Checking columns of train and test file')
             validation_status = False 
 
             schema_file_path = self.data_validation_config.schema_file_path
             schema_file = read_yaml(schema_file_path)
             expecting_columns = list(schema_file['columns'].keys())
-
+            
             train_dataframe = pd.read_csv(self.data_ingestion_artifact.train_file_path)
             test_dataframe = pd.read_csv(self.data_ingestion_artifact.test_file_path )
 

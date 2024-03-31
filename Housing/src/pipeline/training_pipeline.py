@@ -20,6 +20,7 @@ class Pipeline:
         
             data_ingestion = DataIngestion(data_ingestion_config=data_ingestion_config)
             data_ingestion_output = data_ingestion.initiate_data_ingestion()
+
             return data_ingestion_output
             
              
@@ -27,10 +28,10 @@ class Pipeline:
             raise HousingException(e ,sys) from e
         
 
-    def start_data_validation(self)->DataValidationArtifacts:
+    def start_data_validation(self,data_ingestion_artifacts: DataIngestionArtifact)->DataValidationArtifacts:
         try:
             data_validation_config = self.config.get_data_validation_config()
-            data_ingestion_artifact = self.start_data_ingestion()
+            data_ingestion_artifact =data_ingestion_artifacts
             data_validation =DataValidation(data_validation_config=data_validation_config ,
                                             data_ingestion_artifact= data_ingestion_artifact)
 
@@ -40,13 +41,15 @@ class Pipeline:
             raise HousingException(e ,sys) from e
           
 
-    def start_data_transformation(self) ->DataTransformationArtifact:
+    def start_data_transformation(self ,data_ingestion_artifacts:DataIngestionArtifact ,data_validation_artifact:DataValidationArtifacts) ->DataTransformationArtifact:
         try:
             data_transformation_config = self.config.get_data_transformation_config()
+            data_ingestion_artifact = data_ingestion_artifacts
+            data_validation_artifact= data_validation_artifact
             data_transformation_artifacts = DataTransformation(
                 data_transformation_config=data_transformation_config ,
-                data_ingestion_artifact= self.start_data_ingestion() ,
-                data_validation_artifact= self.start_data_validation()
+                data_ingestion_artifact= data_ingestion_artifact ,
+                data_validation_artifact= data_validation_artifact
             )
             data_transformation_artifacts.initiated_data_transformation()
             return data_transformation_artifacts

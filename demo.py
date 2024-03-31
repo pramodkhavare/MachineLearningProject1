@@ -5,12 +5,19 @@ from Housing.src.config.configuration import HousingConfiguration
 from Housing.src.components.data_validation import DataValidation
 from Housing.src.components.data_ingestion import DataIngestion
 from Housing.src.components.data_transformation import DataTransformation
+from Housing.src.entity.artifact_entity import DataIngestionArtifact ,DataValidationArtifacts ,DataTransformationArtifact
 def main():
     try:
+        
         pipeline = Pipeline()
-        # data_ingestion_artifacts = pipeline.start_data_ingestion()
-        # data_validation_artifacts = pipeline.start_data_validation()
-        data_transformation_artifacts = pipeline.start_data_transformation()
+        data_ingestion_artifacts = pipeline.start_data_ingestion()
+        data_validation_artifacts = pipeline.start_data_validation(
+            data_ingestion_artifacts=data_ingestion_artifacts
+        )
+        data_transformation_artifacts = pipeline.start_data_transformation(
+            data_ingestion_artifacts=data_ingestion_artifacts ,
+            data_validation_artifact= data_validation_artifacts
+        )
         
 
 
