@@ -5,7 +5,8 @@ from ensure import ensure_annotations
 import yaml
 import numpy as np
 import pandas as pd
-import dill
+import dill 
+from Housing.src.constant import *
 
 def write_yaml(file_path:str ,data:dict):
     """
@@ -112,4 +113,25 @@ def get_csv_dataset(file_path):
             return dataframe
 
         except Exception as e:
-            raise HousingException(e ,sys) from e 
+            raise HousingException(e ,sys) from e  
+        
+def load_data(file_path :str ,schema_file_path:str) ->pd.DataFrame:
+    try:
+        csv_dataset = pd.read_csv(file_path) 
+        dataset_schema = read_yaml(yaml_file_path=schema_file_path)
+        
+        schema = dataset_schema[SCHEMA_COLUMN_KEY]
+        error_message = ""
+
+        for columns in csv_dataset.columns:
+            if columns in list(schema.keys()):
+                csv_dataset[columns].astype(schema[columns])
+            else:
+                error_messgae = f"{error_messgae} \nColumn: [{columns}] is not in the schema."
+
+
+        if len(error_message) > 0:
+            raise Exception(e ,sys) from e 
+        return csv_dataset
+    except Exception as e:
+            raise HousingException(e ,sys) from e

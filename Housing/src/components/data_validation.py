@@ -18,7 +18,7 @@ class DataValidation():
     def __init__(self ,data_validation_config : DataValidationConfig ,
                  data_ingestion_artifact :DataIngestionArtifact) -> None:
         try:
-            logging.info(f'{"*" * 20} Data Validation Step Started {"*" *20}') 
+            logging.info(f'\n\n{"*" * 20} Data Validation Step Started {"*" *20}') 
             self.data_validation_config  = data_validation_config 
             self.data_ingestion_artifact = data_ingestion_artifact
 
@@ -157,7 +157,7 @@ class DataValidation():
                 is_validated= validation_status,
                 message= f"We are able to validate Train and Test data successfully .Thank you Pramod Khavare"
             )
-            print("Data Validation Completed")
+            # print("Data Validation Completed")
             logging.info(f"Data Validation is completed and result stored in DataValidationArtifacts [{data_validation_artifact}]")
             return data_validation_artifact
         except Exception as e:

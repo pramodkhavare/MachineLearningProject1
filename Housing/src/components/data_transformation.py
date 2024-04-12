@@ -85,7 +85,7 @@ class DataTransformation():
                  data_validation_artifact : DataValidationArtifacts):
         try:
 
-            logging.info(f'{"*" * 20} Data Transformation Step Started {"*" *20}') 
+            logging.info(f'\n\n{"*" * 20} Data Transformation Step Started {"*" *20}') 
             self.data_transformation_config = data_transformation_config
             self.data_ingestion_artifact = data_ingestion_artifact 
             self.data_validation_artifact = data_validation_artifact
@@ -243,7 +243,7 @@ class DataTransformation():
             )
             
             
-            data_transformtion_config = DataTransformationArtifact(
+            data_transformtion_artifacts = DataTransformationArtifact(
                 is_transformed=True ,
                 message= "Data Transformation Is Succefull",
                 transformed_train_file_path= transformed_train_file_path ,
@@ -251,10 +251,11 @@ class DataTransformation():
                 preprocessing_obj_file_path = preprocessor_obje_file_path
 
             )
-            logging.info(data_transformtion_config)
-            print("Data Transformation Completed")
+            logging.info(data_transformtion_artifacts)
+            # print("Data Transformation Completed")
+            logging.info(f'{"*"*20}Data Transformation Completed {"*"*20}')
 
-            return data_transformtion_config
+            return data_transformtion_artifacts
 
         except Exception as e:
-            raise HousingConfiguration (e ,sys) from e
+            raise HousingException (e ,sys) from e

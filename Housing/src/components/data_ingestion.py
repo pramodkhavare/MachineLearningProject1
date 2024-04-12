@@ -139,7 +139,7 @@ class DataIngestion():
             self.extract_tgz_file(tgz_file_path=tgz_file_path)
             data_ingestion_artifacts = self.split_data_train_test()
             logging.info(f"{'*'*20}Data Ingestion Step Completed{'*'*20}")
-            print("Data Ingestion Completed")
+            # print("Data Ingestion Completed")
             return data_ingestion_artifacts
         
         except Exception as e:

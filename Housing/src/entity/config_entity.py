@@ -29,7 +29,7 @@ DataTransfrmationConfig = namedtuple('DataTransfrmationConfig' ,
 
 #Info Related with Model Training
 ModelTrainingConfig = namedtuple('ModelTrainingConfig' ,
-                    ['trained_model_file_path' ,'model_file_name' ,'base_accuracy'])
+                    ['trained_model_file_path' ,'model_file_name' ,'base_accuracy' ,'model_config_file_path'])
 
 
 #Info Related with Model Evaluation use test data and compare with base model
@@ -39,5 +39,5 @@ ModelEvaluationConfig = namedtuple("ModelEvaluationConfig" ,
 
 #Production model saved in these folder and if your model performing better then that model will save at these location
 ModelPusherConfig = namedtuple('ModelPusherConfig' ,
-                               ['export_dir_path'])
+                               ['export_dir_path' ,'export_file_path'])
 
